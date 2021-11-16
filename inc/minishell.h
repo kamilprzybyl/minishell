@@ -9,6 +9,12 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+typedef struct s_builtins
+{
+	char	*cmd;
+	void	(*f)(t_data *data, char **tokens);
+}				t_builtins;
+
 typedef struct s_data
 {
 	char	**envp;
@@ -24,12 +30,16 @@ typedef struct s_data
 
 void	pipex(t_data *data);
 int		set_env(t_data *data, char **envp);
-int		len(char **arr);
-void	env(t_data *data);
-int		set_env(t_data *data, char **envp);
-int		export(t_data *data, char *var);
-int		unset(t_data *data, char *var);
-void	free_arr(char **arr);
-int		export(t_data *data, char *var);
+
+int		exec_builtin(t_data *data, char **tokens);
+int		exec_bin(t_data *data, char **tokens);
+
+int		cd(t_data *data, char **tokens);
+int		pwd(t_data *data, char **tokens);
+void	echo(t_data *data, char **tokens);
+int		export(t_data *data, char **tokens);
+int		unset(t_data *data, char **tokens);
+void	env(t_data *data, char **tokens);
+void	exit(t_data *data, char **tokens);
 
 #endif

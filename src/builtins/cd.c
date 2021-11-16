@@ -1,21 +1,6 @@
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-int	pwd()
-{
-	char cwd[100];
-
-	if (getcwd(cwd, sizeof(cwd)) != NULL) {
-		printf("%s\n", cwd);
-	}
-	else
-	{
-		perror("error");
-		return (1);
-	}
-	return (0);
-}
-
-int	cd(char *path)
+int	cd(t_data *data, char **tokens)
 {
 	// DIR *dir;
 
@@ -24,13 +9,7 @@ int	cd(char *path)
 	// 	printf ("bash: cd: %s: No such file or directory", path);
 	// 	return (1);
 	// }
-	chdir(path);
+	chdir(tokens[0]);
 	// closedir(dir);
 	return (0);
-}
-
-int main()
-{
-	cd("../");
-	pwd();
 }

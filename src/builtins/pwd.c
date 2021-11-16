@@ -1,6 +1,6 @@
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-int	pwd()
+int	pwd(t_data *data, char **tokens)
 {
 	char cwd[100];
 

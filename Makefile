@@ -3,7 +3,14 @@ LIBFT = Libft/libft.a
 NAME = 	minishell
 SRC = 	src/main.c \
 		src/pipe.c \
-		src/env.c
+		src/set_env.c \
+		src/builtins/cd.c \
+		src/builtins/echo.c \
+		src/builtins/env.c \
+		src/builtins/exit.c \
+		src/builtins/export.c \
+		src/builtins/pwd.c \
+		src/builtins/unset.c
 OBJ = 	$(SRC:.c=.o)
 
 all: $(NAME)
