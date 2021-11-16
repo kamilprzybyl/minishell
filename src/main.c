@@ -80,8 +80,10 @@ static int	handle_outfile(t_data *data)
 int	handle_input(t_data *data, char *inpt)
 {
 	init(data, inpt);
-	for (int i = 0; i < data->n; i++)
-		printf("arr[%d] = {%s}\n", i, data->args[i]);
+	// for (int i = 0; i < data->n; i++)
+	// 	printf("arr[%d] = {%s}\n", i, data->args[i]);
+	// if (ft_strncmp(data->args[0], "<", 2) == 0)
+	// 	if (ft_strlen(data->args[0] != 1))
 	handle_infile(data);
 	handle_outfile(data);
 	pipex(data);
@@ -103,6 +105,14 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 	pid_t	pid;
 
+	set_env(&data, envp);
+	env(&data);
+	printf("\n");
+	unset(&data, "PATH");
+	env(&data);
+	printf("\n");
+	export(&data, "LOL");
+	env(&data);
 	if (init_2(&data, argc, argv, envp) != 0)
 		return (1);
 	while (1)
