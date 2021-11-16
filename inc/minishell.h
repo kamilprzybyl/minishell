@@ -24,11 +24,11 @@ typedef struct s_data
 	int		n;
 	int		outfile;
 	int		infile;
+	int		pipe_fd[2];
 	int		here_doc;
 	char	**env;
 }				t_data;
 
-void	pipex(t_data *data);
 int		set_env(t_data *data, char **envp);
 
 int		exec_builtin(t_data *data, char **tokens);
