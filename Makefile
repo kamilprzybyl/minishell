@@ -10,7 +10,14 @@ SRC = 	src/main.c \
 		src/builtins/exit.c \
 		src/builtins/export.c \
 		src/builtins/pwd.c \
-		src/builtins/unset.c
+		src/builtins/unset.c \
+		src/exec/exec_cmd.c \
+		src/exec/exec_builtins.c \
+		src/exec/exec_bin.c \
+		src/redirections/handle_infile.c \
+		src/redirections/handle_outfile.c \
+		src/parsing/parse.c \
+		src/pipe/pipe.c
 OBJ = 	$(SRC:.c=.o)
 
 all: $(NAME)

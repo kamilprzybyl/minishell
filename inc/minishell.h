@@ -17,22 +17,29 @@ typedef struct s_builtins
 
 typedef struct s_data
 {
-	char	**envp;
-	char	**argv;
-	int		argc;
 	char	**args;
-	int		n;
+	char	**tokens;
 	int		outfile;
 	int		infile;
-	int		pipe_fd[2];
 	int		here_doc;
-	char	**env;
+	int		redirections;
+	int		pipe;
 }				t_data;
 
-int		set_env(t_data *data, char **envp);
+char	**g_env;
 
+int		set_env(char **envp);
+
+int		parse(t_data *data, char *input);
+
+void	redirect(t_data *data);
+
+void	exec_cmd(t_data *data, char **tokens);
 int		exec_builtin(t_data *data, char **tokens);
 int		exec_bin(t_data *data, char **tokens);
+
+int		handle_outfile(t_data *data);
+int		handle_infile(t_data *data);
 
 int		cd(t_data *data, char **tokens);
 int		pwd(t_data *data, char **tokens);

@@ -20,7 +20,7 @@ static int	append(t_data *data, char *var)
 	return (0);
 }
 
-static int	add(t_data *data, char **tokens)
+static int	add(t_data *data, char *var)
 {
 	int		i;
 	int		index;

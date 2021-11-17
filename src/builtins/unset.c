@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-static void	delete(t_data *data, char *var)
+static int	delete(t_data *data, char *var)
 {
 	int		i;
 	int		j;
