@@ -1,15 +1,15 @@
 #include "../../inc/minishell.h"
 
-void	echo(t_data *data, char **tokens)
+void	ft_echo(t_data *data, char **tokens)
 {
 	int	i;
 
-	i = 0;
+	(void)data;
+	i = 1;
 	while (tokens[i])
 	{
 		printf("%s", tokens[i]);
 		i++;
 	}
 	printf("\n");
-	return (0);
 }

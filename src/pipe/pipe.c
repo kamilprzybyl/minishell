@@ -1,13 +1,13 @@
 #include "../../inc/minishell.h"
 
-int	pipe_redirection(t_data *data, int input_stream, int output_stream)
-{
-	if (dup2(input_stream, STDIN_FILENO) == -1)
-		return (1);
-	if (dup2(output_stream, STDOUT_FILENO) == -1)
-		return (1);
-	return (0);
-}
+// int	pipe_redirection(int input_stream, int output_stream)
+// {
+// 	if (dup2(input_stream, STDIN_FILENO) == -1)
+// 		return (1);
+// 	if (dup2(output_stream, STDOUT_FILENO) == -1)
+// 		return (1);
+// 	return (0);
+// }
 
 void	redirect(t_data *data)
 {
@@ -23,7 +23,7 @@ void	redirect(t_data *data)
 	{
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], STDOUT_FILENO);
-		exec_cmd(data, tokens);
+		exec_cmd(data, data->tokens);
 	}
 	else
 	{

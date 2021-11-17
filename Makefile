@@ -2,17 +2,17 @@ FLAGS = -Wall -Wextra -Werror
 LIBFT = Libft/libft.a
 NAME = 	minishell
 SRC = 	src/main.c \
-		src/pipe.c \
 		src/set_env.c \
-		src/builtins/cd.c \
-		src/builtins/echo.c \
-		src/builtins/env.c \
-		src/builtins/exit.c \
-		src/builtins/export.c \
-		src/builtins/pwd.c \
-		src/builtins/unset.c \
+		src/handle_input.c \
+		src/builtins/ft_cd.c \
+		src/builtins/ft_echo.c \
+		src/builtins/ft_env.c \
+		src/builtins/ft_exit.c \
+		src/builtins/ft_export.c \
+		src/builtins/ft_pwd.c \
+		src/builtins/ft_unset.c \
 		src/exec/exec_cmd.c \
-		src/exec/exec_builtins.c \
+		src/exec/exec_builtin.c \
 		src/exec/exec_bin.c \
 		src/redirections/handle_infile.c \
 		src/redirections/handle_outfile.c \

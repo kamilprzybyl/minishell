@@ -25,19 +25,19 @@ static int	here_doc(t_data *data, char *limiter)
 	return (0);
 }
 
-int	handle_infile(t_data *data)
+int	handle_infile(t_data *data, char *file)
 {
-	if (ft_strncmp(data->args[0], "here_doc", 8) == 0)
+	if (ft_strncmp(file, "here_doc", 8) == 0)
 	{
-		here_doc(data, data->args[1]);
+		here_doc(data, "eof");
 		data->here_doc = 1;
 	}
 	else
 	{
-		data->infile = open(data->args[0], O_RDONLY);
+		data->infile = open(file, O_RDONLY);
 		if (data->infile == -1)
 		{
-			perror(data->args[0]);
+			perror(file);
 			return (1);
 		}
 	}

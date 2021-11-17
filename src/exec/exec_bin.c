@@ -1,25 +1,13 @@
 #include "../../inc/minishell.h"
 
-static char	**fetch_paths(t_data *data)
-{
-	char	*index;
-	int		i;
-
-	i = 0;
-	while (ft_strncmp("PATH=", data->envp[i], 5))
-		i++;
-	index = ft_strchr(data->envp[i], '=');
-	return (ft_split(index + 1, ':'));
-}
-
-int	exec_bin(t_data *data, char **tokens)
+int	exec_bin(char **tokens)
 {
 	int		i;
 	char	*cmd;
 	char	**paths;
 
 	i = 0;
-	paths = fetch_paths(data);
+	paths = ft_split(getenv("PATH"), ':');
 	while (paths[i])
 	{
 		if (!tokens[0])
@@ -30,7 +18,7 @@ int	exec_bin(t_data *data, char **tokens)
 		cmd = ft_strjoin(paths[i], tokens[0]);
 		if (!cmd)
 			exit(1);
-		execve(cmd, tokens, data->envp);
+		execve(cmd, tokens, g_env);
 		free(cmd);
 		i++;
 	}

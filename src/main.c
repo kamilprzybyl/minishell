@@ -6,7 +6,9 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 	pid_t	pid;
 
-	g_env = set_env(envp);
+	(void)argc;
+	(void)argv;
+	set_env(envp);
 	while (1)
 	{
 		input = readline("minishell % ");
