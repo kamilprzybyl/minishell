@@ -12,7 +12,9 @@
 typedef struct s_data
 {
 	char	**args;
-	char	**tokens;
+	// char	**tokens;
+	char	***cmnds;
+	int		n;
 	int		outfile;
 	int		infile;
 	int		here_doc;
@@ -33,7 +35,7 @@ int		set_env(char **envp);
 void	handle_input(t_data *data, char *input);
 int		parse(t_data *data, char *input);
 
-void	redirect(t_data *data);
+void	redirect(t_data *data, char **tokens, int i);
 
 void	exec_cmd(t_data *data, char **tokens);
 int		exec_builtin(t_data *data, char **tokens);

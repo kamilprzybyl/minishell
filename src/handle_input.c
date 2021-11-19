@@ -2,8 +2,9 @@
 
 int	init(t_data *data)
 {
-	handle_infile(data, data->args[0]);
-	handle_outfile(data, data->args[2]);
+	// handle_infile(data, data->args[0]);
+	// handle_outfile(data, data->args[2]);
+	
 	data->here_doc = 0;
 	data->redirections = 0;
 	data->pipe = 0;
@@ -14,19 +15,22 @@ void	handle_input(t_data *data, char *input)
 {
 	int		i;
 	
-	i = 0;
 	parse(data, input);
-	init(data);
-	if (data->redirections)
-	{
-		dup2(data->infile, STDIN_FILENO);
-		dup2(data->outfile, STDOUT_FILENO);
-	}
-	// while (data->pipe)
+	// init(data);
+	// if (data->redirections)
 	// {
-	// 	redirect(data);
-	// 	i++;
+	// 	dup2(data->infile, STDIN_FILENO);
+	// 	dup2(data->outfile, STDOUT_FILENO);
 	// }
-	exec_cmd(data, data->args);
+	i = 0;
+	// redirect(data, data->cmnds[i], i);
+	// i++;
+	while (i < data->n - 1)
+	{
+		redirect(data, data->cmnds[i], i);
+		i++;
+	}
+	// dup2(STDOUT_FILENO, STDOUT_FILENO);
+	exec_cmd(data, data->cmnds[data->n - 1]);
 }
 
