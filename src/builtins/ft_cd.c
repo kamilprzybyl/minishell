@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-void	ft_cd(t_data *data, char **tokens)
+void	ft_cd(t_data *data)
 {
 	// DIR *dir;
 	(void)data;
@@ -9,6 +9,6 @@ void	ft_cd(t_data *data, char **tokens)
 	// 	printf ("bash: cd: %s: No such file or directory", path);
 	// 	return (1);
 	// }
-	chdir(tokens[0]);
+	chdir(data->tokens[0]);
 	// closedir(dir);
 }

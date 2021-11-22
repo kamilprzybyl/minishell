@@ -12,13 +12,16 @@
 typedef struct s_data
 {
 	char	**args;
-	// char	**tokens;
+	char	**tokens;
 	char	***cmnds;
 	int		n;
 	int		outfile;
 	int		infile;
 	int		here_doc;
-	int		redirections;
+	int		input_redirections;
+	int		output_redirections;
+	int		pipe_fd[2];
+	int		tmp_fd;
 	int		pipe;
 }				t_data;
 
@@ -35,21 +38,21 @@ int		set_env(char **envp);
 void	handle_input(t_data *data, char *input);
 int		parse(t_data *data, char *input);
 
-void	redirect(t_data *data, char **tokens, int i);
+void	redirections(t_data *data);
 
-void	exec_cmd(t_data *data, char **tokens);
-int		exec_builtin(t_data *data, char **tokens);
-int		exec_bin(char **tokens);
+void	exec_cmd(t_data *data);
+int		exec_builtin(t_data *data);
+int		exec_bin(t_data *data);
 
 int		handle_outfile(t_data *data, char *file);
 int		handle_infile(t_data *data, char *file);
 
-void	ft_cd(t_data *data, char **tokens);
-void	ft_pwd(t_data *data, char **tokens);
-void	ft_echo(t_data *data, char **tokens);
-void	ft_export(t_data *data, char **tokens);
-void	ft_unset(t_data *data, char **tokens);
-void	ft_env(t_data *data, char **tokens);
-void	ft_exit(t_data *data, char **tokens);
+void	ft_cd(t_data *data);
+void	ft_pwd(t_data *data);
+void	ft_echo(t_data *data);
+void	ft_export(t_data *data);
+void	ft_unset(t_data *data);
+void	ft_env(t_data *data);
+void	ft_exit(t_data *data);
 
 #endif

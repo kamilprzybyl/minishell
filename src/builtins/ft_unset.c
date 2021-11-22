@@ -25,15 +25,15 @@ static int	delete(char *var)
 	return (0);
 }
 
-void	ft_unset(t_data *data, char **tokens)
+void	ft_unset(t_data *data)
 {
 	int	i;
 
 	(void)data;
 	i = 0;
-	while (tokens[i])
+	while (data->tokens[i])
 	{
-		if (delete(tokens[i]) == 1)
+		if (delete(data->tokens[i]) == 1)
 			exit(1);
 		i++;
 	}

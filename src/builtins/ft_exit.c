@@ -1,8 +1,7 @@
 #include "../../inc/minishell.h"
 
-void	ft_exit(t_data *data, char **tokens)
+void	ft_exit(t_data *data)
 {
 	(void)data;
-	(void)tokens;
 	exit(0);
 }

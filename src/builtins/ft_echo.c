@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-void	ft_echo(t_data *data, char **tokens)
+void	ft_echo(t_data *data)
 {
 	int	i;
 

@@ -14,10 +14,10 @@ SRC = 	src/main.c \
 		src/exec/exec_cmd.c \
 		src/exec/exec_builtin.c \
 		src/exec/exec_bin.c \
+		src/redirections/redirections.c \
 		src/redirections/handle_infile.c \
 		src/redirections/handle_outfile.c \
-		src/parsing/parse.c \
-		src/pipe/pipe.c
+		src/parsing/parse.c
 OBJ = 	$(SRC:.c=.o)
 
 all: $(NAME)

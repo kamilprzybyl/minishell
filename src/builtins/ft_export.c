@@ -44,15 +44,15 @@ static int	add(char *var)
 	return (0);
 }
 
-void	ft_export(t_data *data, char **tokens)
+void	ft_export(t_data *data)
 {
 	int	i;
 
 	(void)data;
 	i = 1;
-	while (tokens[i])
+	while (data->tokens[i])
 	{
-		if (add(tokens[i]) == 1)
+		if (add(data->tokens[i]) == 1)
 			exit(1);
 		i++;
 	}
