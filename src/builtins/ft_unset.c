@@ -1,40 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shackbei <shackbei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/27 22:35:36 by shackbei          #+#    #+#             */
+/*   Updated: 2021/11/27 22:35:51 by shackbei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
-static int	delete(char *var)
+static int	delete(t_data *data, char *var)
 {
 	int		i;
 	int		j;
 	char	**tmp;
 
-	tmp = malloc(sizeof(char *) * ft_arrlen(g_env));
-	if (!g_env)
+	if (!data->env || !ft_getenv(data, var))
+		return (1);
+	tmp = malloc(sizeof(char *) * ft_arrlen(data->env));
+	if (!tmp)
 		return (1);
 	i = 0;
 	j = 0;
-	while (g_env[j])
+	while (data->env[j])
 	{
-		if (ft_strncmp(g_env[i], var, ft_strlen(var)) == 0
-			&& g_env[i][ft_strlen(var)] == '=')
+		if (ft_strncmp(data->env[i], var, ft_strlen(var)) == 0
+			&& data->env[i][ft_strlen(var)] == '=')
 			j++;
-		tmp[i] = ft_strdup(g_env[j]);
-		i++;
-		j++;
+		if (data->env[j])
+		{
+			tmp[i++] = ft_strdup(data->env[j]);
+			j++;
+		}
 	}
-	free_arr(g_env);
-	g_env = tmp;
+	tmp[i] = NULL;
+	free_matrix(data->env);
+	data->env = tmp;
 	return (0);
 }
 
-void	ft_unset(t_data *data)
+int	ft_unset(t_data *data)
 {
-	int	i;
+	int		i;
+	char	**argv;
 
-	(void)data;
-	i = 0;
-	while (data->tokens[i])
+	argv = data->all[3];
+	i = 1;
+	while (argv[i])
 	{
-		if (delete(data->tokens[i]) == 1)
-			exit(1);
+		delete(data, argv[i]);
 		i++;
 	}
+	return (0);
 }

@@ -1,59 +1,72 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shackbei <shackbei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/27 22:34:56 by shackbei          #+#    #+#             */
+/*   Updated: 2021/11/27 22:35:13 by shackbei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
-static int	append(char *var)
+static int	append(t_data *data, char *var)
 {
 	int		i;
 	char	**tmp;
 
-	tmp = malloc(sizeof(char *) * (ft_arrlen(g_env) + 1 + 1));
+	tmp = malloc(sizeof(char *) * (ft_arrlen(data->env) + 1 + 1));
 	if (!tmp)
 		return (1);
 	i = 0;
-	while (g_env[i])
+	while (data->env[i])
 	{
-		tmp[i] = ft_strdup(g_env[i]);
+		tmp[i] = ft_strdup(data->env[i]);
 		i++;
 	}
 	tmp[i++] = ft_strdup(var);
 	tmp[i] = NULL;
-	free_arr(g_env);
-	g_env = tmp;
+	free_matrix(data->env);
+	data->env = tmp;
 	return (0);
 }
 
-static int	add(char *var)
+static int	add(t_data *data, char *var)
 {
 	int		i;
 	int		index;
 
-	if (!ft_strrchr(var, '='))
+	if (ft_strchr(var, '=') < 0)
 		return (1);
-	index = (int)(ft_strrchr(var, '=') - var);
+	index = ft_strchr(var, '=');
 	i = 0;
-	while (g_env[i])
+	while (data->env[i])
 	{
-		if (ft_strncmp(g_env[i], var, index + 1) == 0)
+		if (ft_strncmp(data->env[i], var, index + 1) == 0)
 		{
-			free(g_env[i]);
-			g_env[i] = ft_strdup(var);
+			free(data->env[i]);
+			data->env[i] = ft_strdup(var);
 			return (0);
 		}
 		i++;
 	}
-	append(var);
+	append(data, var);
 	return (0);
 }
 
-void	ft_export(t_data *data)
+int	ft_export(t_data *data)
 {
-	int	i;
+	int		i;
+	char	**argv;
 
-	(void)data;
+	argv = data->all[3];
 	i = 1;
-	while (data->tokens[i])
+	while (argv[i])
 	{
-		if (add(data->tokens[i]) == 1)
-			exit(1);
+		add(data, argv[i]);
 		i++;
 	}
+	return (0);
 }

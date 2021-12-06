@@ -1,30 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_bin.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shackbei <shackbei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/27 22:36:14 by shackbei          #+#    #+#             */
+/*   Updated: 2021/12/01 13:26:41 by shackbei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
-int	exec_bin(t_data *data)
+void	exec_bin(t_data *data)
 {
 	int		i;
 	char	*cmd;
 	char	**paths;
+	char	**argv;
 
+	argv = data->all[3];
 	i = 0;
-	paths = ft_split(getenv("PATH"), ':');
-	while (paths[i])
+	paths = ft_split(ft_getenv(data, "PATH"), ':');
+	while (paths && paths[i])
 	{
-		if (!data->tokens[0])
-			write(2, "zsh: command not found: \n", 26);
 		cmd = ft_strjoin(paths[i], "/");
 		free(paths[i]);
 		paths[i] = cmd;
-		cmd = ft_strjoin(paths[i], data->tokens[0]);
-		if (!cmd)
-			exit(1);
-		execve(cmd, data->tokens, g_env);
+		cmd = ft_strjoin(paths[i], argv[0]);
+		if (access(cmd, F_OK) == 0)
+			break ;
 		free(cmd);
+		cmd = argv[0];
 		i++;
 	}
-	ft_putstr_fd("zsh: command not found: ", 2);
-	ft_putendl_fd(data->tokens[0], 2);
-	free_arr(paths);
-	free_arr(data->tokens);
-	exit(1);
+	execve(cmd, argv, data->env);
+	ft_putstr_fd("command not found: ", 2);
+	ft_putendl_fd(argv[0], 2);
+	free_matrix(paths);
+	exit(EXIT_FAILURE);
 }

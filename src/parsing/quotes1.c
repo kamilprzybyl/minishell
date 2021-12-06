@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_env.c                                          :+:      :+:    :+:   */
+/*   quotes1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shackbei <shackbei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/27 23:06:51 by shackbei          #+#    #+#             */
-/*   Updated: 2021/11/27 23:06:52 by shackbei         ###   ########.fr       */
+/*   Created: 2021/11/27 22:42:44 by shackbei          #+#    #+#             */
+/*   Updated: 2021/11/27 22:45:26 by shackbei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/parsing.h"
 
-int	set_env(t_data *data, char **envp)
+int	ft_strchr_out_of_qot(char *beg, char c)
 {
-	int	i;
+	t_temp	temp;
 
-	data->env = malloc(sizeof(char *) * (ft_arrlen(envp) + 1));
-	if (!data->env)
-		return (1);
-	i = 0;
-	while (envp[i])
+	ft_init_s_temp(&temp);
+	while (beg[temp.i] && (beg[temp.i] != c
+			|| (temp.sqot == -1 || temp.dqot == -1)))
 	{
-		data->env[i] = ft_strdup(envp[i]);
-		i++;
+		ft_qot_check(&temp, beg[temp.i]);
+		temp.i++;
 	}
-	data->env[i] = NULL;
-	return (0);
+	return (temp.i);
+}
+
+void	pointer_on_qot(t_temp *temp, int **qot)
+{
+	if (temp->sqot > temp->dqot)
+		*qot = &temp->dqot;
+	else
+		*qot = &temp->sqot;
 }

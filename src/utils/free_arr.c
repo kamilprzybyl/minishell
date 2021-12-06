@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_env.c                                          :+:      :+:    :+:   */
+/*   free_arr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shackbei <shackbei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/27 23:06:51 by shackbei          #+#    #+#             */
-/*   Updated: 2021/11/27 23:06:52 by shackbei         ###   ########.fr       */
+/*   Created: 2021/12/01 20:40:25 by shackbei          #+#    #+#             */
+/*   Updated: 2021/12/01 20:40:26 by shackbei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-int	set_env(t_data *data, char **envp)
+void	free_arr(t_data *data)
 {
 	int	i;
 
-	data->env = malloc(sizeof(char *) * (ft_arrlen(envp) + 1));
-	if (!data->env)
-		return (1);
 	i = 0;
-	while (envp[i])
+	while (i < 4)
 	{
-		data->env[i] = ft_strdup(envp[i]);
+		free_matrix(data->all[i]);
 		i++;
 	}
-	data->env[i] = NULL;
-	return (0);
 }
